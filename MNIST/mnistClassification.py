@@ -1,5 +1,4 @@
-#!/usr/bin/python3
-
+# -*- coding: utf-8 -*-
 '''
 MNIST: Modified National Institute of Standards and Technology database
     -It is a large database of handwritten digits that is commonly used 
@@ -16,6 +15,7 @@ from keras.models import Sequential
 from keras.layers import Dense, Conv2D, Dropout, Flatten, MaxPooling2D
 from keras.utils import np_utils
 from keras.optimizers import Adam
+from keras.utils.np_utils import to_categorical, normalize
 
 trainImages = []
 trainLabels = []
@@ -25,6 +25,10 @@ testLabels = []
 #MNIST directly from TensorFlow, import and load the data:
 minst = tf.keras.datasets.mnist
 (trainImages, trainLabels), (testImages, testLabels) = minst.load_data()
+
+#Seeing the data type of downloaded data
+print("trainImage is a:",type(trainImages))
+print("trainLabels is a:",type(trainLabels))
 
 def showImage(index, data):
     mplt.imshow(data[index], cmap='Greys')
@@ -54,39 +58,39 @@ def printArrayInfo(trainImages,trainLabels):
 printArrayInfo(trainImages,trainLabels)
 #showImageAndLabel(trainImages,trainLabels,144)
 
-#Reshaping the array to 4-dims so that it can work with the Keras API
-trainImages = trainImages.reshape(trainImages.shape[0],28,28,1)
-testImages = testImages.reshape(testImages.shape[0],28,28,1)
-
-print("After reshape: ")
-printArrayInfo(trainImages,trainLabels)
+#Reshaping the array to 4-dims so that it can work with the Keras API (not necessary)
+#trainImages = trainImages.reshape(trainImages.shape[0],28,28,1)
+#testImages = testImages.reshape(testImages.shape[0],28,28,1)
 
 # Making sure that the values are float
 trainImages = trainImages.astype('float32')
 testImages = testImages.astype('float32')
 
-# Normalizing the RGB codes by dividing it to the max RGB value.
+''' 
+Normalizing the RGB codes by dividing it to the max RGB value.
 trainImages /= 255
 testImages /= 255
+'''
+trainImages = normalize(trainImages)
+testImages = normalize(testImages)
 
 #Categorize the labels (not required here...)
 #trainLabels = np_utils.to_categorical(trainLabels,10)
-#testLabels = np_utils.to_categorical(testLabels,10)
+#testLabels = np_utils.to_from keras.utils.np_utils import to_categorical, normalizeategorical(testLabels,10)
 
-#Building the Convolutional Neural Network (CNN)
+#Building the Convolutionafrom keras.utils.np_utils import to_categorical, normalize Neural Network (CNN)
 model = Sequential([
     #transforms the format of the images from a 2d-array (of 28 by 28 pixels), to a 1d-array of 28 * 28 = 784 pixels
-    Flatten(),
+    Flatten(input_shape=(28, 28)),
     #Densely-connected, or fully-connected, neural layers. 
     Dense(128, activation=tf.nn.relu),
     Dense(128, activation=tf.nn.relu),
-    #The last layer is a 10-node softmax layer—this returns an array of 10 probability scores that sum to 1
     Dense(10, activation=tf.nn.softmax)
 ])
 
 '''
 Loss function —This measures how accurate the model is during training. 
-            We want to minimize this function to "steer" the model in the right direction.
+        We want to minimize this function to "steer" the model in the right direction.
 Optimizer —This is how the model is updated based on the data it sees and its loss function.
 Metrics —Used to monitor the training and testing steps. The following uses accuracy, 
          the fraction of the images that are correctly classified.
@@ -100,6 +104,7 @@ model.compile(optimizer=Adam(),
 model.fit(trainImages,trainLabels, epochs=10)
 
 #Evaluate model
+print("Evaluating the model...")
 model.evaluate(testImages,testLabels)
 
 def predict(index):
@@ -107,7 +112,7 @@ def predict(index):
     mplt.figure(num=title)
     image_index = index
     mplt.imshow(testImages[image_index].reshape(28, 28),cmap='Greys')
-    pred = model.predict(testImages[image_index].reshape(1,28,28,1))
+    pred = model.predict(testImages[image_index].reshape(1,28,28))
     mplt.xlabel(pred.argmax())
     mplt.show()
 
@@ -121,9 +126,10 @@ def predict64Images(images):
         mplt.grid(False)
 
         mplt.imshow(images[i].reshape(28, 28),cmap='Greys')
-        pred = model.predict(images[i].reshape(1,28,28,1))
+        pred = model.predict(images[i].reshape(1,28,28))
         mplt.xlabel(pred.argmax())
     mplt.show()
 
-predict(144)
-predict64Images(testImages)
+if __name__ == "__main__":
+    predict(144)
+    predict64Images(testImages)
