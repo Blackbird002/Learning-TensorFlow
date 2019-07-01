@@ -53,6 +53,34 @@ sudo ubuntu-drivers autoinstall
 sudo reboot
 ```
 
+Verify that nvidia driver was successfully installed:
+```
+nvidia-smi
+```
+
+Install Anaconda (Popular Python Data Science Platform):
+[Anaconda 2019.03 for Linux Installer Python 3.7 version](https://www.anaconda.com/distribution/#download-section)
+
+Create a new virtual environment with python 3.7:
+```
+conda create -n tf-gpu python=3.7
+source activate tf-gpu
+```
+Remember to activate the virtual environment (called tf-gpu in this case) everytime you need to run TensorFlow!
+
+Install Tensorflow GPU along with CUDA & CuDNN:
+```
+conda install tensorflow-gpu
+conda install cudatoolkit
+conda install cudnn
+conda install h5py
+```
+
+If you need to install other python packages like Keras, you can use conda seach:
+```
+conda search Keras
+```
+
 ## MNIST (The "Hello World" of ML)
 - Modified National Institute of Standards and Technology database
 - Database of handwritten digits
