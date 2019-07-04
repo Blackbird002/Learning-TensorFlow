@@ -3,13 +3,12 @@ My self-study notes and scripts for learning TensorFlow
 
 ## Installing TensorFlow
 
-### CPU:
+### CPU (Ubuntu 18 64-bit):
 - [Install TensorFlow](https://www.tensorflow.org/install)
 - [Easy Bash Script to install TF - (Linux pip & virtual env) ](https://github.com/Blackbird002/Learning-TensorFlow/blob/master/installTF.sh)
 
-### GPU:
+### GPU (Ubuntu 18.10 64-bit):
 - Need an Nvidia GPU with CUDA Compute >= 3.5
-- Ubuntu 18.10 64-bit
 
 We need to blacklist the nouveau dirver to prevent modprobe from loading it via modalias:
 ```
@@ -81,14 +80,18 @@ If you need to install other python packages like Keras, you can use conda seach
 conda search Keras
 ```
 
-## MNIST (The "Hello World" of ML)
+## MNIST Classification
 - Modified National Institute of Standards and Technology database
 - Database of handwritten digits
 - Training set: 60,000 examples & labels
 - Test set: 10,000 examples & labels
 - [MNIST](http://yann.lecun.com/exdb/mnist/)
-- [TensorFlow Script](https://github.com/Blackbird002/Learning-TensorFlow/blob/master/MNIST/mnistClassification.py)
+- [mnistClassification.py](https://github.com/Blackbird002/Learning-TensorFlow/blob/master/MNIST/mnistClassification.py)
 
-## Fashion MNIST
+## Fashion MNIST Classification
   - Database of grayscale images of 10 different categories of clothes
-  - [TensorFlow Script](https://github.com/Blackbird002/Learning-TensorFlow/blob/master/Fashion%20MNIST/FashionMnistClassification.py)
+  - [FashionMnistClassification.py](https://github.com/Blackbird002/Learning-TensorFlow/blob/master/Fashion%20MNIST/FashionMnistClassification.py)
+
+## Classifying Cats and Dogs!
+  - Dataset: [Microsoft's Kaggle Cats and Dogs Dataset](https://www.microsoft.com/en-us/download/details.aspx?id=54765)
+  - [CatsAndDogs.py](https://github.com/Blackbird002/Learning-TensorFlow/blob/master/CatsAndDogs/CatsAndDogs.py)
