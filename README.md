@@ -1,7 +1,12 @@
 # Learning-TensorFlow
 My self-study notes and scripts for learning TensorFlow
 
-## Installing TensorFlow
+## Helpful videos:
+"sentdex" is a great youtuber that explains everything very well:
+- [Deep Learning basics with Python, TensorFlow and Keras Playlist - sentdex](https://www.youtube.com/playlist?list=PLQVvvaa0QuDfhTox0AjmQ6tvTgMBZBEXN)
+- [Machine Learning with Python - sentdex](https://www.youtube.com/playlist?list=PLQVvvaa0QuDfKTOs3Keq_kaG2P55YRn5v)
+
+## Installing TensorFlow:
 
 ### CPU (Ubuntu 18 64-bit):
 - [Install TensorFlow](https://www.tensorflow.org/install)
