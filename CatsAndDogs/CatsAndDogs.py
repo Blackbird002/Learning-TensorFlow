@@ -15,14 +15,14 @@ Location of Dog & Cat Images from Microsoft's Kaggle Cats and Dogs
 dataset:
 https://www.microsoft.com/en-us/download/details.aspx?id=54765
 '''
-dataDir = "C:\\Users\\riads\\Documents\\TFLearning\\PetImages"
+dataDir = "/home/rayshash/PetImages"
 
 '''
 0 - dog
 1 - cat
 '''
 categories = ["Dog", "Cat"]
-imgSize = 80
+imgSize = 128
 
 #Optional (testing)
 def loadImages():
@@ -86,7 +86,7 @@ def saveData(trainX, trainY):
     pickleOut.close()
 
 #Load saved python serialized objects...
-def loadData():
+def loadData(trainX, trainY):
     trainX = pickle.load(open("X.pickle", "rb"))
     trainY = pickle.load(open("Y.pickle", "rb"))
     return (trainX, trainY)
@@ -95,16 +95,16 @@ def loadData():
 def bulidCNNModel(trainX):
     model = Sequential()
 
-    model.add(Conv2D(64, (3,3), input_shape = trainX.shape[1:]))
+    model.add(Conv2D(64, kernel_size=(3,3), input_shape = trainX.shape[1:]))
     model.add(Activation("relu"))
     model.add(MaxPooling2D(pool_size=(2,2)))
 
-    model.add(Conv2D(64, (3,3)))
+    model.add(Conv2D(64, kernel_size=(3,3)))
     model.add(Activation("relu"))
     model.add(MaxPooling2D(pool_size=(2,2)))
 
-    model.add(Flatten())
-    model.add(Dense(64))
+    model.add(Flatten(input_shape=(imgSize, imgSize)))
+    model.add(Dense(128))
 
     model.add(Dense(1))
     model.add(Activation("sigmoid"))
@@ -120,8 +120,13 @@ def compileModel(model):
 
 #Train...
 def fitModel(model, trainX, trainY):    
-    model.fit(trainX, trainY, batch_size=32, epochs=10, validation_split=0.1)
+    model.fit(trainX, trainY, batch_size=32, epochs=17, validation_split=0.1)
     return model
+
+#Save the model
+def saveModel(model, modelName): 
+    model.save("{}.model".format(modelName))
+
 
 def main():
     trainData = []
@@ -130,6 +135,7 @@ def main():
     trainY = []
     (trainX, trainY) = reshapeData(trainData, trainX, trainY)
     saveData(trainX, trainY)
+    #(trainX, trainY) = loadData(trainX, trainY)
 
     #Normalize the data (images again...)
     trainX = trainX / 255.0
@@ -137,6 +143,8 @@ def main():
     model = bulidCNNModel(trainX)
     model = compileModel(model)
     model = fitModel(model, trainX, trainY)
+
+    saveModel(model, "CatsAndDogs")
 
 if __name__ == "__main__":
     main()
