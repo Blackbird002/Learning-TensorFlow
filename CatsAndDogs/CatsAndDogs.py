@@ -61,7 +61,7 @@ def createTrainData(trainData):
             except Exception as e:
                 pass
     print("Items in trainData: ", len(trainData))
-    #Shuffle the data so it's not all dogs and then all cats!
+    #Shuffle the data so it's not all dogs and then all cats! (better training)
     random.shuffle(trainData)
     return trainData
 
@@ -92,6 +92,10 @@ def loadData(trainX, trainY):
     return (trainX, trainY)
 
 #Building the model (CNN)
+'''
+ -ReLU (Rectified Linear Unit) Activation Function
+ -Sigmoid or Logistic Activation Function
+'''
 def bulidCNNModel(trainX):
     model = Sequential()
 
@@ -104,9 +108,12 @@ def bulidCNNModel(trainX):
     model.add(MaxPooling2D(pool_size=(2,2)))
 
     model.add(Flatten(input_shape=(imgSize, imgSize)))
+
     model.add(Dense(128))
+    model.add(Activation("relu"))
 
     model.add(Dense(1))
+    #Sigmoid function is because it exists between (0 to 1) 
     model.add(Activation("sigmoid"))
 
     return model
@@ -120,22 +127,23 @@ def compileModel(model):
 
 #Train...
 def fitModel(model, trainX, trainY):    
-    model.fit(trainX, trainY, batch_size=32, epochs=17, validation_split=0.1)
+    model.fit(trainX, trainY, batch_size=32, epochs=7, validation_split=0.1)
     return model
 
 #Save the model
 def saveModel(model, modelName): 
+    print("Saving the model...")
     model.save("{}.model".format(modelName))
 
 
 def main():
-    trainData = []
-    trainData = createTrainData(trainData)
+    #trainData = []
+    #trainData = createTrainData(trainData)
     trainX = []
     trainY = []
-    (trainX, trainY) = reshapeData(trainData, trainX, trainY)
-    saveData(trainX, trainY)
-    #(trainX, trainY) = loadData(trainX, trainY)
+    #(trainX, trainY) = reshapeData(trainData, trainX, trainY)
+    #saveData(trainX, trainY)
+    (trainX, trainY) = loadData(trainX, trainY)
 
     #Normalize the data (images again...)
     trainX = trainX / 255.0
