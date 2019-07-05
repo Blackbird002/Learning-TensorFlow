@@ -7,7 +7,9 @@ import random
 #binary protocols for serializing and de-serializing a Python object
 import pickle
 import tensorflow as tf
+import time
 from tensorflow.keras.models import Sequential
+from tensorflow.keras.callbacks import TensorBoard
 from tensorflow.keras.layers import Dense, Dropout, Activation, Flatten, Conv2D, MaxPooling2D
 
 '''
@@ -16,6 +18,15 @@ dataset:
 https://www.microsoft.com/en-us/download/details.aspx?id=54765
 '''
 dataDir = "/home/rayshash/PetImages"
+
+'''
+To open TensorBoard type this into CLI:
+$tensorboard --logdir=/home/rayshash/gitHub/Learning-TensorFlow/CatsAndDogs/logs
+
+where --logdir=<The directory of the logs folder>
+'''
+MODELNAME = "Cats-Dogs-CNN-64x2-Dense64-{}".format(int(time.time())) 
+TB = TensorBoard(log_dir="logs/{}".format(MODELNAME))
 
 '''
 0 - dog
@@ -109,7 +120,7 @@ def bulidCNNModel(trainX):
 
     model.add(Flatten(input_shape=(imgSize, imgSize)))
 
-    model.add(Dense(128))
+    model.add(Dense(64))
     model.add(Activation("relu"))
 
     model.add(Dense(1))
@@ -127,7 +138,7 @@ def compileModel(model):
 
 #Train...
 def fitModel(model, trainX, trainY):    
-    model.fit(trainX, trainY, batch_size=32, epochs=7, validation_split=0.1)
+    model.fit(trainX, trainY, batch_size=32, epochs=7, validation_split=0.1, callbacks=[TB])
     return model
 
 #Save the model
