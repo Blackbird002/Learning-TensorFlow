@@ -2,6 +2,7 @@
 My self-study notes and scripts for learning TensorFlow
 
 ## Installing TensorFlow
+[script and guide (CPU and GPU - Ubuntu 10.+)](https://github.com/Blackbird002/Learning-TensorFlow/tree/master/installTF)
 
 ## Helpful videos:
 "sentdex" is a great youtuber that explains everything very well:
