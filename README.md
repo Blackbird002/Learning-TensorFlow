@@ -100,6 +100,10 @@ conda search Keras
   - Database of grayscale images of 10 different categories of clothes
   - [FashionMnistClassification.py](https://github.com/Blackbird002/Learning-TensorFlow/blob/master/Fashion%20MNIST/FashionMnistClassification.py)
 
-## Classifying Cats and Dogs!
+## Classifying Cats and Dogs (using TensorBoard for optimization)
   - Dataset: [Microsoft's Kaggle Cats and Dogs Dataset](https://www.microsoft.com/en-us/download/details.aspx?id=54765)
   - [CatsAndDogs.py](https://github.com/Blackbird002/Learning-TensorFlow/blob/master/CatsAndDogs/CatsAndDogs.py)
+
+  Optimization - trying to find the best model for this example
+  - [tryModels.py](https://github.com/Blackbird002/Learning-TensorFlow/blob/master/CatsAndDogs/tryModels.py)
+  - [Model metrics](https://github.com/Blackbird002/Learning-TensorFlow/tree/master/CatsAndDogs)
