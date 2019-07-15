@@ -57,6 +57,11 @@ nvidia-smi
 Install Anaconda (Popular Python Data Science Platform):
 [Anaconda 2019.03 for Linux Installer Python 3.7 version](https://www.anaconda.com/distribution/#download-section)
 
+Update conda to latest version:
+```
+conda update -n base -c defaults conda
+```
+
 Create a new virtual environment with python 3.7:
 ```
 conda create -n tf-gpu python=3.7
