@@ -1,13 +1,15 @@
 # Installing TensorFlow:
 
-## CPU (Ubuntu 18 64-bit):
+## CPU (Ubuntu 18.04 LTS 64-bit):
 - [Install TensorFlow](https://www.tensorflow.org/install)
 - [Easy Bash Script to install TF - (Linux pip & virtual env) ](https://github.com/Blackbird002/Learning-TensorFlow/blob/master/installTF.sh)
 
 ## GPU (Ubuntu 18.10 64-bit):
 - Need an Nvidia GPU with CUDA Compute >= 3.5
+[CUDA GPUs](https://developer.nvidia.com/cuda-gpus)
 
-We need to blacklist the nouveau dirver to prevent modprobe from loading it via modalias:
+After installing Ubuntu 18.04 LTS, the open-source Nvidia Graphics driver nouveau is installed by default. TensorFlow requires proprietary Nvidia drivers.
+We need to blacklist the nouveau driver to prevent modprobe from loading it via modalias:
 ```
 sudo bash -c "echo blacklist nouveau > /etc/modprobe.d/blacklist-nvidia-nouveau.conf"
 
